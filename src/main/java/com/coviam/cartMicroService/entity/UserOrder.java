@@ -2,6 +2,7 @@ package com.coviam.cartMicroService.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 @Entity
 public class UserOrder {
 
@@ -20,6 +22,7 @@ public class UserOrder {
     private double amount;
     private String orderDate;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userOrder")
+
     private List<OrderDetails> orderDetails;
 
     public void setOrderDate(String orderDate) {

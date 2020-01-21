@@ -1,5 +1,7 @@
 package com.coviam.cartMicroService.entity;
 
+import lombok.ToString;
+
 import javax.persistence.*;
 
 
@@ -15,6 +17,15 @@ public class OrderDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userOrderId")
     private UserOrder userOrder;
+
+    @Transient
+    private String merchantName;
+    @Transient
+    private double sellingPrice;
+    @Transient
+    private String description;
+    @Transient
+    private String categoryName;
 
     public int getOrderDetailsId() {
         return orderDetailsId;
@@ -46,6 +57,43 @@ public class OrderDetails {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getMerchantName() {
+        return merchantName;
+    }
+
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+    }
+
+    public double getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(double sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
     public void setUserOrder(UserOrder userOrder) {

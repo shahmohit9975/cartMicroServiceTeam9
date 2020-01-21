@@ -11,25 +11,6 @@ import java.util.List;
 @ToString
 public class CartOrderDTO {
 
-//"userEmail":,
-//        "amount":,
-//        "orderDate":,
-//
-//    OrderDetails:[
-//
-//    {
-//        "merchantAndProductId":,
-//        "price":,
-//        "quantity":
-//    }
-//    ],
-//            "merchantName":,
-//            "description":,
-//            "productRating":,
-//            "categoryName":,
-//            "price":,
-//            "sellingPrice":
-
     private int cartId;
     private String userEmail;
     private double amount;
