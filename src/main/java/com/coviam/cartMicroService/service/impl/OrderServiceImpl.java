@@ -16,8 +16,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public UserOrder save(UserOrder userOrder) {
-//        userOrder.getOrderDetails();
-//        final UserOrder save = userOrderRepository.save(userOrder);
+
         List<OrderDetails> orderDetails = userOrder.getOrderDetails();
         for (OrderDetails orderDetails1 : orderDetails)
             orderDetails1.setUserOrder(userOrder);

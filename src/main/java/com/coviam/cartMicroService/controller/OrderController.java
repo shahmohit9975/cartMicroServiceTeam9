@@ -10,29 +10,17 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.BodyPart;
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.List;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.BodyPart;
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
+
+@CrossOrigin
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -63,15 +51,8 @@ public class OrderController {
 
     private void sendEmail(int orderId, String userEmail, double amount, String orderDate, ArrayList<EmailOrderDetailsDTO> emailOrderDetailsDTOSList) throws MessagingException {
 
-//        System.out.println("orderId : " + orderId);
-//        System.out.println("userEmail : " + userEmail);
-//        System.out.println("amount : " + amount);
-//        System.out.println("orderDate : " + orderDate);
-//        System.out.println("EmailOrderDetailsDTO :" + emailOrderDetailsDTOSList.toString());
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-//        SimpleMailMessage msg = new SimpleMailMessage();
-//        helper.setText(htmlMsg, true);
         helper.setTo(userEmail);
         helper.setSubject("Your Order Details");
         String orderMsg = null;
