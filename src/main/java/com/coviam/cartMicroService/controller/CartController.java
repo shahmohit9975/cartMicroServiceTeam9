@@ -2,6 +2,7 @@ package com.coviam.cartMicroService.controller;
 
 import com.coviam.cartMicroService.dto.AllCartDetailsDTO;
 import com.coviam.cartMicroService.dto.CartUpdateDTO;
+import com.coviam.cartMicroService.dto.EmailDTO;
 import com.coviam.cartMicroService.entity.Cart;
 import com.coviam.cartMicroService.service.CartService;
 import org.springframework.beans.BeanUtils;
@@ -28,9 +29,9 @@ public class CartController {
         return new ResponseEntity<Cart>(cartService.updateCart(cart), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/get/{userEmail}")
-    public ResponseEntity<List<AllCartDetailsDTO>> getCartList(@PathVariable String userEmail) {
+    @PostMapping(path = "/get")
+    public ResponseEntity<List<AllCartDetailsDTO>> getCartList(@RequestBody EmailDTO emailDTO) {
 
-        return new ResponseEntity<List<AllCartDetailsDTO>>(cartService.getAllCartDetails(userEmail), HttpStatus.OK);
+        return new ResponseEntity<List<AllCartDetailsDTO>>(cartService.getAllCartDetails(emailDTO.getUserEmail()), HttpStatus.OK);
     }
 }

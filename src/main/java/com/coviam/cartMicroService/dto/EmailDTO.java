@@ -2,11 +2,9 @@ package com.coviam.cartMicroService.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-public class OtpDto {
-    private String otp;
+public class EmailDTO {
+    private String userEmail;
 }

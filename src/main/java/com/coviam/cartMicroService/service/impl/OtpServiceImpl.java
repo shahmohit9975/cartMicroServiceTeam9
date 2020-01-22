@@ -34,7 +34,7 @@ public class OtpServiceImpl implements OtpService {
         helper.setText("<b> Your OTP IS : " + orderMsg + "</b>", true);
         javaMailSender.send(mimeMessage);
         OtpDto otpDto = new OtpDto();
-        otpDto.setOtp(randomPIN);
+        otpDto.setOtp(String.valueOf(randomPIN));
         return otpDto;
     }
 }
