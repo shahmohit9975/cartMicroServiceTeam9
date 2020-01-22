@@ -26,9 +26,7 @@ public class UserOrder {
     private List<OrderDetails> orderDetails;
 
     public void setOrderDate(String orderDate) {
-
         LocalDateTime now = LocalDateTime.now();
-        System.out.println("Before Formatting: " + now);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formatDateTime = now.format(format);
         this.orderDate = formatDateTime;

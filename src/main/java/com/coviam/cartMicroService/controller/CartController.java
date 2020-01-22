@@ -1,6 +1,7 @@
 package com.coviam.cartMicroService.controller;
 
 import com.coviam.cartMicroService.dto.AllCartDetailsDTO;
+import com.coviam.cartMicroService.dto.CartDTO;
 import com.coviam.cartMicroService.dto.CartUpdateDTO;
 import com.coviam.cartMicroService.dto.EmailDTO;
 import com.coviam.cartMicroService.entity.Cart;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/cart")
 public class CartController {
@@ -30,8 +31,8 @@ public class CartController {
     }
 
     @PostMapping(path = "/get")
-    public ResponseEntity<List<AllCartDetailsDTO>> getCartList(@RequestBody EmailDTO emailDTO) {
+    public ResponseEntity<List<CartDTO>> getCartList(@RequestBody EmailDTO emailDTO) {
 
-        return new ResponseEntity<List<AllCartDetailsDTO>>(cartService.getAllCartDetails(emailDTO.getUserEmail()), HttpStatus.OK);
+        return new ResponseEntity<List<CartDTO>>(cartService.getAllCartDetails(emailDTO.getUserEmail()), HttpStatus.OK);
     }
 }

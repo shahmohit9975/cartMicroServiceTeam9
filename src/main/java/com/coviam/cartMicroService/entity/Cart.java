@@ -18,7 +18,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int cartId;
     private String userEmail;
-    private int quantity;
+    private int cartQuantity;
     private String merchantAndProductId;
 
 }
