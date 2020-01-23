@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.coviam</groupId>
-	<artifactId>cartMicroService</artifactId>
+	<artifactId>cartMicroServiceTeam_9</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cartMicroService</name>
+	<name>cartMicroServiceTeam_9</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -43,16 +43,16 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.10</version>
-		</dependency>
-		<dependency>
-			<groupId>com.squareup.okhttp3</groupId>
-			<artifactId>okhttp</artifactId>
-			<version>4.2.2</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.httpcomponents</groupId>-->
+			<!--<artifactId>httpclient</artifactId>-->
+			<!--<version>4.5.10</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>com.squareup.okhttp3</groupId>-->
+			<!--<artifactId>okhttp</artifactId>-->
+			<!--<version>4.2.2</version>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
