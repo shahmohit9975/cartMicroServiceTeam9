@@ -1,15 +1,19 @@
 package com.coviam.cartMicroServiceTeam_9.service.impl;
 
 
-import com.coviam.cartMicroServiceTeam_9.dto.EmailOrderDetailsDTO;
+import com.coviam.cartMicroServiceTeam_9.dto.*;
 import com.coviam.cartMicroServiceTeam_9.entity.OrderDetails;
 import com.coviam.cartMicroServiceTeam_9.entity.UserOrder;
 import com.coviam.cartMicroServiceTeam_9.repository.UserOrderRepository;
 import com.coviam.cartMicroServiceTeam_9.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
@@ -41,7 +45,8 @@ public class OrderServiceImpl implements OrderService {
     public void sendEmail(int orderId, String userEmail, double amount, String orderDate, ArrayList<EmailOrderDetailsDTO> emailOrderDetailsDTOSList) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-        helper.setTo(userEmail);
+        //TODO add userEmail
+        helper.setTo("201812093@daiict.ac.in");
         helper.setSubject("Your Order Details");
         String orderMsg = null;
         orderMsg = "<br>orderId : " + orderId + "<br>Total amount : " + amount + "<br>orderDate : " + orderDate + "<br><br>";
@@ -60,4 +65,48 @@ public class OrderServiceImpl implements OrderService {
         helper.setText("" + orderMsg + "", true);
         javaMailSender.send(mimeMessage);
     }
+
+    @Override
+    public synchronized StatusCheckForOrderDTO checkQuantity(List<OrderDetails> orderDetails) {
+        StatusCheckForOrderDTO statusCheckForOrderDTO = new StatusCheckForOrderDTO();
+        ArrayList<QuantityCheckForOrderDTO> quantityCheckForOrderDTOList = new ArrayList<QuantityCheckForOrderDTO>();
+        statusCheckForOrderDTO.setStatus(true);
+        for (OrderDetails od : orderDetails) {
+            QuantityCheckForOrderDTO quantityCheckForOrderDTO = new QuantityCheckForOrderDTO();
+            String merchantAndProductId = od.getMerchantAndProductId();
+            final String uri = "http://localhost:8082/merchantAndProduct/get/merchant/" + merchantAndProductId;
+            System.out.println("URL : " + uri);
+
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<MerchantAndProductDTO> responseEntity = restTemplate.exchange(
+                    uri,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<MerchantAndProductDTO>() {
+                    });
+            MerchantAndProductDTO merchantAndProductDTO = responseEntity.getBody();
+            int availableQuantity = merchantAndProductDTO.getQuantity() - merchantAndProductDTO.getTotalSellingQuantity();
+            if (availableQuantity < od.getQuantity()) {
+                statusCheckForOrderDTO.setStatus(false);
+                quantityCheckForOrderDTO.setAvailableQuantity(availableQuantity);
+                quantityCheckForOrderDTO.setMerchantAndProductId(merchantAndProductId);
+                quantityCheckForOrderDTOList.add(quantityCheckForOrderDTO);
+            }
+
+        }
+        statusCheckForOrderDTO.setQuantityCheckForOrderDTOList(quantityCheckForOrderDTOList);
+        return statusCheckForOrderDTO;
+    }
+
+    @Override
+    public void decreaseQuantityAfterOrderPlaced(ArrayList<DecreaseMerchantProductQuantityDTO> list) {
+        final String uri = "http://localhost:8082/merchantAndProduct/decreaseQuantity";
+        System.out.println("URL : " + uri);
+        RestTemplate restTemplate = new RestTemplate();
+        String responseMessage = restTemplate.postForObject(
+                uri, list, String.class
+        );
+    }
+
+
 }

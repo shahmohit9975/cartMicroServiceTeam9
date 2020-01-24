@@ -6,6 +6,7 @@ import com.coviam.cartMicroServiceTeam_9.dto.CartUpdateDTO;
 import com.coviam.cartMicroServiceTeam_9.dto.EmailDTO;
 import com.coviam.cartMicroServiceTeam_9.entity.Cart;
 import com.coviam.cartMicroServiceTeam_9.service.CartService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,4 @@ public class CartController {
         int cartId = Integer.parseInt(String.valueOf(map.get("cartId")));
         return new ResponseEntity<Map<String, ?>>(cartService.deleteCartList(cartId), HttpStatus.OK);
     }
-
-
 }
