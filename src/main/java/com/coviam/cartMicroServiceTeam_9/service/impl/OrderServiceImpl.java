@@ -6,6 +6,7 @@ import com.coviam.cartMicroServiceTeam_9.entity.OrderDetails;
 import com.coviam.cartMicroServiceTeam_9.entity.UserOrder;
 import com.coviam.cartMicroServiceTeam_9.repository.UserOrderRepository;
 import com.coviam.cartMicroServiceTeam_9.service.OrderService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -108,5 +109,11 @@ public class OrderServiceImpl implements OrderService {
         );
     }
 
+    @Override
+    public List<UserOrder> getUserOrderDetails(String userEmail) {
+        List<UserOrder> userOrderList = userOrderRepository.findAllByUserEmail(userEmail);
+
+        return userOrderList;
+    }
 
 }

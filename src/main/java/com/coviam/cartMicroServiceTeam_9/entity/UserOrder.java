@@ -22,7 +22,6 @@ public class UserOrder {
     private double amount;
     private String orderDate;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userOrder")
-
     private List<OrderDetails> orderDetails;
 
     public void setOrderDate(String orderDate) {
@@ -31,5 +30,6 @@ public class UserOrder {
         String formatDateTime = now.format(format);
         this.orderDate = formatDateTime;
     }
+
 
 }

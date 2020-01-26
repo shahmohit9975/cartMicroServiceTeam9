@@ -94,6 +94,10 @@ public class OrderDetails {
         return super.toString();
     }
 
+    public UserOrder getUserOrder() {
+        return userOrder;
+    }
+
     public void setUserOrder(UserOrder userOrder) {
         this.userOrder = userOrder;
     }

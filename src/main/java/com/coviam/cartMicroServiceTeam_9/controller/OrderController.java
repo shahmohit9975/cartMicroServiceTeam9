@@ -1,10 +1,7 @@
 package com.coviam.cartMicroServiceTeam_9.controller;
 
 
-import com.coviam.cartMicroServiceTeam_9.dto.DecreaseMerchantProductQuantityDTO;
-import com.coviam.cartMicroServiceTeam_9.dto.EmailOrderDetailsDTO;
-import com.coviam.cartMicroServiceTeam_9.dto.MerchantAndProductDTO;
-import com.coviam.cartMicroServiceTeam_9.dto.StatusCheckForOrderDTO;
+import com.coviam.cartMicroServiceTeam_9.dto.*;
 import com.coviam.cartMicroServiceTeam_9.entity.OrderDetails;
 import com.coviam.cartMicroServiceTeam_9.entity.UserOrder;
 import com.coviam.cartMicroServiceTeam_9.service.OrderService;
@@ -65,4 +62,12 @@ public class OrderController {
 
         }
     }
+
+    @GetMapping(path = "/get/{userEmail}")
+    public ResponseEntity<?> getOrderDetails(@PathVariable String userEmail) {
+        List<UserOrder> userOrderDTO = orderService.getUserOrderDetails(userEmail);
+        return new ResponseEntity<>(userOrderDTO, HttpStatus.OK);
+    }
+
+
 }

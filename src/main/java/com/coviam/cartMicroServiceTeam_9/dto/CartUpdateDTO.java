@@ -11,9 +11,4 @@ public class CartUpdateDTO {
     private int cartQuantity;
     private String merchantAndProductId;
 
-    //5e2ac558ca57a15d6b11c750
-
-    //5e2ac588ca57a15d6b11c751
-
-
 }
